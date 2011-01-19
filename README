@@ -1,0 +1,11 @@
+
+ torero
+ ======
+
+Is a simple python script to facilitate search & discovery of torrent files
+based on certain filtering.
+
+Requires installed lxml library. Try with
+> easy_install lxml
+
+
