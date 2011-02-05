@@ -3,8 +3,9 @@ import urllib
 import urllib2
 from lxml import etree
 from StringIO import StringIO
-import zlib
 import gzip
+import sys
+import os
 
 
 USER_AGENT_HEADER = 'User-Agent'
@@ -160,33 +161,13 @@ class Torero(object):
     def download(self, torrent, dir_path):
         self._downloader.download(torrent['id'], dir_path)
 
-# Example of usage
-def get_episode(keywords, episode):
-    torero = Torero(TorrentzDotCom(), Torrage())
-    re_keywords = re.compile(keywords, re.I)
-    re_episode = re.compile(episode, re.I)
-    size_limit = compute_bytes('400 Mb')
-    torrents = torero.add_filter_predicate(
-            lambda torrent: compute_bytes(torrent['size']) < size_limit
-        ).add_filter_predicate(
-            lambda torrent: re_keywords.search(torrent['title'])
-        ).add_filter_predicate(
-            lambda torrent: re_episode.search(torrent['title'])
-        ).search_for(keywords + ' ' + episode)
-    # download torrent
-    if not torrents:
-        print 'Episode %s was found.' % episode
-        return
-    torrent = torrents[0]
-    print 'Found: ' + torrent['title'] + ' ' + torrent['size']
-    user_input = raw_input("Download (yes/no)?")
-    if user_input.startswith('y'):
-        torero.download(torrents[0], 'c:\\data\\downloads\\')
-    else:
-        print 'Skipping'
+def dest_exists(dir_path):
+    if not os.path.exists(dir_path):
+        user_input = raw_input('Create path %s (yes/no)?' % dir_path)
+        if not user_input.startswith('y'):
+            return False
+        os.makedirs(dir_path)
+    return True
 
-for num in range(1, 8):
-    episode = 'S01E' + str(num).zfill(2)
-    get_episode('gates', episode)
-    
+   
 
