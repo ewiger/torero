@@ -53,7 +53,7 @@ if __name__ == '__main__':
     parser = prepare_arg_parser()
     args = parser.parse_args()
     season_prefix = args.prefix
-    kwds_match = ''.join(args.keywords)
+    kwds_match = ' '.join(args.keywords)
     episodes = xrange(args.range[0], args.range[1] + 1)
     downloads = args.downloads
     # Check if downloads path is ready.
