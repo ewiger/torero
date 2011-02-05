@@ -8,4 +8,10 @@ based on certain filtering.
 Requires installed lxml library. Try with
 > easy_install lxml
 
+Written and tested on python 2.7
+
+Torrents discovery and downloader called episodes.py is an example application,
+written using torero.py module. Please note that script only finds and loads
+the *.torrents files. You will have to import them into a torrent client for
+downloading the payload data.
 
